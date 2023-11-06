@@ -29,15 +29,6 @@ function App() {
 
       <div className={`container-custom ${isDropdownOpen ? 'modal-open' : ''}`} >
 
-
-        {/* <Router>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/js-string-methods" element={<StringMethods />} />
-            <Route path="*" element={<NotFoundPage />} /> 
-          </Routes>
-        </Router> */}
-
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
