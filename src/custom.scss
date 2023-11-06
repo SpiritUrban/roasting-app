@@ -1,0 +1,29 @@
+// Подключаем функции Bootstrap, необходимые для работы переменных и примесей
+@import "node_modules/bootstrap/scss/functions";
+
+// Переопределяем переменные перед импортом переменных Bootstrap
+// Основные цвета темы
+$body-bg: #343a40; // Темный фон тела
+$body-color: #f8f9fa; // Цвет текста на темном фоне
+
+// Цвета компонентов
+$component-active-bg: #007bff; // Цвет фона для активных компонентов
+$component-active-color: #fff; // Цвет текста для активных компонентов
+
+// Цвета для кнопок
+$btn-primary-bg: #007bff;
+$btn-primary-border: #007bff;
+$btn-secondary-bg: #6c757d;
+$btn-secondary-border: #6c757d;
+
+// Подключаем остальные переменные Bootstrap
+@import "node_modules/bootstrap/scss/variables";
+
+// Подключаем остальные Bootstrap SCSS файлы
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.panel-default {
+    button {
+        margin: 1rem .5rem;
+    }
+}

@@ -1,11 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import Counter from './components/Counter';
+import logo from "./logo.svg";
+import "./App.css";
+import Counter from "./components/Counter";
+import "./custom.scss";
+// import Button from "react-bootstrap/Button";
+
+import OffcanvasNav from "./components/OffcanvasNav";
+
 
 function App() {
   return (
     <div className="App">
+      <OffcanvasNav />
       <Counter />
+
+      {/* <Button variant="primary">Primary</Button> */}
+
 
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
