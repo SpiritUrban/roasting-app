@@ -40,7 +40,7 @@ function OffcanvasNav({ onDropdownToggle }) {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                
-                  <Nav.Link href="/#/" className="nav-link-custom" >Home</Nav.Link>
+                  <Nav.Link href="./#/" className="nav-link-custom" >Home</Nav.Link>
                   <Nav.Link href="#action2" className="nav-link-custom">Link</Nav.Link>
                   <NavDropdown
                     drop="up"
