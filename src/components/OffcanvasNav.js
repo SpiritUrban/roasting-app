@@ -6,15 +6,16 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function OffcanvasNav({ onDropdownToggle }) {
   // variants of nav adapations that can be used
   // [false, 'sm', 'md', 'lg', 'xl', 'xxl']
 
 
-  
-  let JS =[
-    {title: 'String Methods', url: './js-string-methods'}
+
+  let JS = [
+    { title: 'String Methods', url: './#/js-string-methods' }
   ];
   // for (let i = 0; i <100; i++){
   //   example[i] = 'example';
@@ -38,7 +39,8 @@ function OffcanvasNav({ onDropdownToggle }) {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="/" className="nav-link-custom" >Home</Nav.Link>
+               
+                  <Nav.Link href="/#/" className="nav-link-custom" >Home</Nav.Link>
                   <Nav.Link href="#action2" className="nav-link-custom">Link</Nav.Link>
                   <NavDropdown
                     drop="up"
@@ -48,7 +50,7 @@ function OffcanvasNav({ onDropdownToggle }) {
                     onToggle={(isOpen, event, metadata) => onDropdownToggle(isOpen)}
                   >
                     {JS.map((item, i) => {
-                      return (<NavDropdown.Item key={'nav-drop-js-'+i} href={item.url} className="nav-link-custom">{item.title}</NavDropdown.Item>)
+                      return (<NavDropdown.Item key={'nav-drop-js-' + i} href={item.url} className="nav-link-custom">{item.title}</NavDropdown.Item>)
                     })}
 
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>

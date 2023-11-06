@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+
 import './App.css';
 // import Counter from './components/Counter';
 import './custom.scss';
 // import Button from 'react-bootstrap/Button';
 
 import OffcanvasNav from './components/OffcanvasNav';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage'
 import StringMethods from './pages/js/StringMethods';
@@ -28,11 +29,20 @@ function App() {
 
       <div className={`container-custom ${isDropdownOpen ? 'modal-open' : ''}`} >
 
+
+        {/* <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/js-string-methods" element={<StringMethods />} />
+            <Route path="*" element={<NotFoundPage />} /> 
+          </Routes>
+        </Router> */}
+
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/js-string-methods" element={<StringMethods />} />
-            <Route path="*" element={<NotFoundPage />} /> {/* Маршрут для 404 страницы */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
 
@@ -42,7 +52,7 @@ function App() {
         {/* <Button variant="primary">Primary</Button> */}
 
 
-       
+
       </div>
 
     </div>
