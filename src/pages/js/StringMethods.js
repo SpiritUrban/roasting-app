@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Counter = () => {
+const StringMethods = () => {
   const [count, setCount] = useState(0);
 
   // Эффект для отслеживания монтирования компонента
@@ -23,21 +23,10 @@ const Counter = () => {
 
   return (
     <div>
-      <h2>Счетчик: {count}</h2>
-      {/* type="button"
-      type="reset"
-      type="submit" */}
-
-      <div className="panel-default">
-        <button type="button" className="btn btn-primary" onClick={handleIncrement}>
-          Увеличить
-        </button>
-        <button type="button" className="btn btn-primary" onClick={handleDecrement}>
-          Уменьшить
-        </button>
-      </div>
+      <h2>/js-string-methods: {count}</h2>
+      
     </div>
   );
 };
 
-export default Counter;
+export default StringMethods;

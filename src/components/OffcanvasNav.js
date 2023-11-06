@@ -13,10 +13,12 @@ function OffcanvasNav({ onDropdownToggle }) {
 
 
   
-  let example =[];
-  for (let i = 0; i <100; i++){
-    example[i] = 'example';
-  }
+  let JS =[
+    {title: 'String Methods', url: './js-string-methods'}
+  ];
+  // for (let i = 0; i <100; i++){
+  //   example[i] = 'example';
+  // }
   return (
     <>
       {['lg'].map((expand) => (
@@ -36,7 +38,7 @@ function OffcanvasNav({ onDropdownToggle }) {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1" className="nav-link-custom" >Home</Nav.Link>
+                  <Nav.Link href="/" className="nav-link-custom" >Home</Nav.Link>
                   <Nav.Link href="#action2" className="nav-link-custom">Link</Nav.Link>
                   <NavDropdown
                     drop="up"
@@ -45,8 +47,8 @@ function OffcanvasNav({ onDropdownToggle }) {
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                     onToggle={(isOpen, event, metadata) => onDropdownToggle(isOpen)}
                   >
-                    {example.map(item => {
-                      return (<NavDropdown.Item href="#action3" className="nav-link-custom">{item}</NavDropdown.Item>)
+                    {JS.map((item, i) => {
+                      return (<NavDropdown.Item key={'nav-drop-js-'+i} href={item.url} className="nav-link-custom">{item.title}</NavDropdown.Item>)
                     })}
 
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>

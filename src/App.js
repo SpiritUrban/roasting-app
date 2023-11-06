@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Counter from './components/Counter';
+// import Counter from './components/Counter';
 import './custom.scss';
 // import Button from 'react-bootstrap/Button';
 
 import OffcanvasNav from './components/OffcanvasNav';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage'
+import StringMethods from './pages/js/StringMethods';
 
 
 function App() {
@@ -23,54 +26,23 @@ function App() {
 
       <OffcanvasNav onDropdownToggle={handleDropdownToggle} />
 
-
       <div className={`container-custom ${isDropdownOpen ? 'modal-open' : ''}`} >
 
-        {isDropdownOpen && <div className="modal-backdrop fade show"></div>}
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/js-string-methods" element={<StringMethods />} />
+            <Route path="*" element={<NotFoundPage />} /> {/* Маршрут для 404 страницы */}
+          </Routes>
+        </Router>
 
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />      <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />      <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
-        <Counter />
+        {isDropdownOpen && <div className="modal-backdrop fade show"></div>}
 
 
         {/* <Button variant="primary">Primary</Button> */}
 
 
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+       
       </div>
 
     </div>
