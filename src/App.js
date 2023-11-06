@@ -38,7 +38,7 @@ function App() {
           </Routes>
         </Router> */}
 
-        <Router>
+        <Router basename="/roasting-app">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/js-string-methods" element={<StringMethods />} />
