@@ -16,14 +16,102 @@ $btn-primary-border: #007bff;
 $btn-secondary-bg: #6c757d;
 $btn-secondary-border: #6c757d;
 
+
 // Подключаем остальные переменные Bootstrap
 @import "node_modules/bootstrap/scss/variables";
 
 // Подключаем остальные Bootstrap SCSS файлы
 @import "node_modules/bootstrap/scss/bootstrap";
 
+// Настройка цветов наведения для элементов выпадающего списка
+$dropdown-link-hover-bg: #555;
+$dropdown-link-hover-color: #fff;
+
+// Импортируйте остальные SCSS файлы Bootstrap, чтобы переменные применились
+@import "node_modules/bootstrap/scss/dropdown";
+
+// Дополнительные стили, если требуется
+.navbar-dark .nav-link.dropdown-toggle:hover,
+.navbar-dark .nav-link.dropdown-toggle:focus {
+  background-color: $dropdown-link-hover-bg;
+  color: $dropdown-link-hover-color;
+}
+
+.dropdown-menu {
+  max-height: 90vh;
+  overflow: auto;
+}
+
 .panel-default {
-    button {
-        margin: 1rem .5rem;
-    }
+  button {
+    margin: 1rem 0.5rem;
+  }
+}
+
+.main-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10000;
+}
+
+.offcanvas.offcanvas-end {
+  z-index: 10000;
+}
+
+
+.modal-open {
+  overflow: hidden; /* Блокировка прокрутки страницы */
+}
+
+.modal-backdrop {
+  /* Затемнение всей страницы */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1040;
+  background-color: rgba(0, 0, 0, 0.8); /* полупрозрачный черный фон */
+}
+
+.modal-backdrop.show {
+    opacity: var(--bs-backdrop-opacity);
+}
+
+/* Увеличение шрифта и отступов в навигационной панели */
+.navbar-custom {
+  font-size: 1.2rem; /* увеличение размера шрифта */
+  padding-top: 0.5rem; /* увеличение отступа сверху */
+  padding-bottom: 0.5rem; /* увеличение отступа снизу */
+}
+
+/* Увеличение отступов элементов навигации */
+.nav-link-custom {
+  padding: 0.8rem 1rem; /* увеличение вертикальных и горизонтальных отступов */
+}
+
+/* Изменение размеров кнопки в навбаре */
+.navbar-btn-custom {
+  padding: 0.6rem 1.2rem; /* увеличение отступов */
+  font-size: 1.1rem; /* увеличение размера шрифта */
+}
+
+/* Стили для NavDropdown */
+.nav-dropdown-custom .dropdown-toggle {
+  font-size: 1.2rem; /* Больший размер текста */
+  padding: 10px 15px; /* Больше пространства вокруг текста */
+  //   height: 100%;
+  //   display: block;
+  //   line-height: 2.3rem;
+}
+
+/* Стили для элементов выпадающего списка */
+.nav-dropdown-custom .dropdown-menu {
+  font-size: 1rem; /* Размер текста для выпадающих элементов */
+}
+
+/* Стили для каждого выпадающего элемента */
+.nav-dropdown-custom .dropdown-item {
+  padding: 10px 15px; /* Больше пространства вокруг элементов */
 }

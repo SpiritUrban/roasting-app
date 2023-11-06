@@ -1,6 +1,12 @@
 .App {
   text-align: center;
 }
+.container-custom {
+  overflow: auto;
+  height: calc(100vh - 3rem);
+  /* display: flex;
+  flex-direction: column; */
+}
 
 .App-logo {
   height: 40vmin;
@@ -22,6 +28,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  z-index: 0;
 }
 
 .App-link {

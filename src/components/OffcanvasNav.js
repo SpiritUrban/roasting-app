@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -6,15 +7,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-function OffcanvasNav() {
+function OffcanvasNav({ onDropdownToggle }) {
   // variants of nav adapations that can be used
   // [false, 'sm', 'md', 'lg', 'xl', 'xxl']
+
+
+  
+  let example =[];
+  for (let i = 0; i <100; i++){
+    example[i] = 'example';
+  }
   return (
     <>
       {['lg'].map((expand) => (
-        <Navbar key={expand} expand={expand} className="navbar-dark bg-dark  mb-3">
+        <Navbar key={expand} expand={expand} className="navbar-custom navbar-dark bg-dark main-nav">
           <Container fluid>
-            <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
+            <Navbar.Brand href="#">RA</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
@@ -23,21 +31,29 @@ function OffcanvasNav() {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Offcanvas
+                  RA
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">Home</Nav.Link>
-                  <Nav.Link href="#action2">Link</Nav.Link>
+                  <Nav.Link href="#action1" className="nav-link-custom" >Home</Nav.Link>
+                  <Nav.Link href="#action2" className="nav-link-custom">Link</Nav.Link>
                   <NavDropdown
-                    title="Dropdown"
+                    drop="up"
+                    title="JavaScript"
+                    className="nav-dropdown-custom"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
+                    onToggle={(isOpen, event, metadata) => onDropdownToggle(isOpen)}
                   >
+                    {example.map(item => {
+                      return (<NavDropdown.Item href="#action3" className="nav-link-custom">{item}</NavDropdown.Item>)
+                    })}
+
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">
                       Another action
                     </NavDropdown.Item>
+
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action5">
                       Something else here
@@ -51,7 +67,7 @@ function OffcanvasNav() {
                     className="me-2"
                     aria-label="Search"
                   />
-                  <Button variant="outline-success">Search</Button>
+                  <Button variant="outline-success" className="navbar-btn-custom">Search</Button>
                 </Form>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
