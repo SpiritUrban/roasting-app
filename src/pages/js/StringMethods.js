@@ -1,31 +1,47 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import yaml from 'js-yaml';
+
+const log = console.log;
 
 const StringMethods = () => {
-  const [count, setCount] = useState(0);
+  const [data, setData] = useState(null);
 
   // Эффект для отслеживания монтирования компонента
   useEffect(() => {
-    console.log("Компонент Counter был монтирован.");
 
-    // Опционально, функция очистки при демонтировании компонента
+    const loadData = async () => {
+      const result = await axios.get('/data/js/StringMethods.yaml');
+      const jsonData = yaml.load(result.data);
+      log(jsonData)
+      setData(jsonData);
+    };
+
+    loadData();
+
     return () => {
       console.log("Компонент Counter будет размонтирован.");
     };
   }, []);
 
-  const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
-  };
-
-  const handleDecrement = () => {
-    setCount((prevCount) => prevCount - 1);
-  };
-
   return (
     <div>
-      <h2>/js-string-methods: {count}</h2>
-      
-    </div>
+      {data ? (
+         <div>
+         <h2>Пользователи:</h2>
+         <ul>
+           {data.map((item, i) => (
+             <li key={'js-data-str-teth-'+i}>
+               header: {item.header}
+             </li>
+           ))}
+         </ul>
+       </div>
+      ) : (
+        <p>Loading...</p>
+      )
+      }
+    </div >
   );
 };
 

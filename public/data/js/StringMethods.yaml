@@ -1,0 +1,337 @@
+- header: "String Methods"
+  portions:
+    - text:
+        - |
+          substring(). slice(). substr().
+        - |
+          There are 3 methods for extracting a part of a string:
+      example: |
+        slice(start, end);
+        substring(start, end);
+        substr(start, length);
+
+- header: "slice()"
+  portions:
+    - text:
+        - |
+          slice() extracts a part of a string 
+          and returns the extracted part 
+          in a new string.
+        - |
+          The method takes 2 parameters: 
+          start position, 
+          and end position 
+          (end not included).
+      example: |
+        let text = "Apple, Banana, Kiwi";
+        let part = text.slice(7, 13);
+        // part -> "Banana"
+    - text:
+        - |
+          Slice out a portion of a string from position 7 
+          to position 13
+        - |
+          If you omit the second parameter, 
+          the method will slice out the rest of the string:
+      example: |
+        let text = "Apple, Banana, Kiwi";
+        let part = text.slice(7);
+        // part -> "Banana, Kiwi"
+    - text:
+        - |
+          If a parameter is negative, 
+          the position is counted from the end of the string
+      example: |
+        let text = "Apple, Banana, Kiwi";
+        let part = text.slice(-12);
+        // part -> "Banana, Kiwi"
+    - text:
+        - |
+          This example slices out a portion of a string 
+          from position -12 to position -6
+      example: |
+        let text = "Apple, Banana, Kiwi";
+        let part = text.slice(-12, -6);
+        // part -> "Banana"
+
+- header: "substring()"
+  portions:
+    - text:
+        - substring() is similar to slice()
+        - |
+          The difference is that 
+          start and end values less than 0 are treated as 0 
+          in substring()
+      example: |
+        let str = "Apple, Banana, Kiwi";
+        let part = str.substring(7, 13);
+    - text:
+        - He's purely positive!
+        - |
+          If you omit the second parameter, 
+          substring() will slice out the rest of the string
+
+- header: "substr()"
+  portions:
+    - text:
+        - substr() is similar to slice().
+        - |
+          The difference is that the second parameter ...
+          specifies the length of the extracted part.
+      example: |
+        let str = "Apple, Banana, Kiwi";
+        let part = str.substr(7, 6);
+        // part -> 'Banana'
+    - text:
+        - |
+          If you omit the second parameter, 
+          substr() will slice out the rest of the string.
+        - |
+          If the first parameter is negative, 
+          the position counts from the end of the string.
+      example: |
+        let str = "Apple, Banana, Kiwi";
+        let part = str.substr(7);
+        // part -> 'Banana, Kiwi'
+
+- header: "Replacing String Content"
+  portions:
+    - text:
+        - | 
+          The replace() method replaces 
+          a specified value with another value 
+          in a string
+      example: |
+        let text = "Please visit Microsoft!";
+        let newText = text.replace("Microsoft", "W3Schools");
+        // newText -> "Please visit W3Schools!"
+    - text:
+        - |
+          The replace() method does not change the string 
+          it is called on.
+        - |
+          The replace() method returns a new string.
+        - |
+          The replace() method replaces only the first match
+        - |
+          If you want to replace all matches, 
+          use a regular expression ...
+          with the /g flag set.
+      example: |
+        let text = "Please visit Microsoft and Microsoft!";
+        let newText = text.replace(/Microsoft/g, "W3Schools");
+        // newText -> "Please visit W3Schools and W3Schools!"
+    - text:
+        - |
+          By default, 
+          the replace() method is case sensitive.
+        - |
+          To replace case insensitive, 
+          use a regular expression with an /i flag (insensitive)
+      example: |
+          let text = "Please visit Microsoft!";
+          let newText = text.replace(/MICROSOFT/i, "W3Schools");
+          // newText -> "Please visit W3Schools!"
+
+- header: "replaceAll()"
+  portions:
+    - text:
+        - | 
+          In 2021, 
+          JavaScript introduced the string method 
+          replaceAll()
+      example: |
+          let text = "I love cats. Cats are very easy to love. \
+          Cats are very popular."
+          text = text.replaceAll("Cats","Dogs");
+          text = text.replaceAll("cats","dogs");
+          // text -> I love dogs. Dogs are very easy to love. Dogs are very popular.
+    - text:
+        - | 
+          The replaceAll() method allows you to specify a 
+          regular expression instead of a string 
+          to be replaced.
+        - | 
+          If the parameter is a regular expression, 
+          the global flag (g) must be set, 
+          otherwise a TypeError is thrown.
+      example: |
+          let text = "I love cats. Cats are very easy to love. Cats are very popular";
+          text = text.replaceAll(/Cats/g,"Dogs");
+          text = text.replaceAll(/cats/g,"dogs");
+          // text -> I love dogs. Dogs are very easy to love. Dogs are very popular
+
+- header: "Converting to Upper and Lower Case"
+  portions:
+    - text:
+        - | 
+          A string is converted to upper case with toUpperCase()
+      example: |
+          let text1 = "Hello World!";
+          let text2 = text1.toUpperCase();  
+          // text2 -> "HELLO WORLD!"
+    - text:
+        - | 
+          A string is converted to lower case with toLowerCase()
+      example: |
+          let text1 = "Hello World!";
+          let text2 = text1.toLowerCase();
+          // text2 -> "hello world!"
+
+- header: "trim(), trimStart(), trimEnd()"
+  portions:
+    - text:
+        - | 
+          The trim() method removes whitespace from both sides of a string
+      example: |
+          let text1 = "      Hello World!      ";
+          let text2 = text1.trim();
+          // text2 -> "Hello World!"
+    - text:
+        - | 
+          ECMAScript 2019 added the String method trimStart() to JavaScript.
+        - |
+          The trimStart() method works like trim(), 
+          but removes whitespace only from the start of a string.
+      example: |
+          let text1 = "      Hello World!      ";
+          let text2 = text1.trimStart();
+          // text2 -> "Hello World!      "
+    - text:
+        - | 
+          ECMAScript 2019 added the String method trimEnd() to JavaScript.
+        - |
+          The trimEnd() method works like trim(), 
+          but removes whitespace only from the end of a string.
+      example: |
+          let text1 = "      Hello World!      ";
+          let text2 = text1.trimEnd();
+          // text2 -> "      Hello World!"
+
+- header: "Padding"
+  portions:
+    - text:
+        - |
+          ECMAScript 2017 added two new string methods to JavaScript: 
+          padStart() and padEnd() 
+          to support padding 
+          at the beginning and at the end of a string.
+        - |
+          The padStart() method pads a string from the start.
+        - |
+          It pads a string with another string (multiple times) 
+          until it reaches a given length.
+        - |
+          For example: Pad a string with "0" until it reaches the length 4
+      example: |
+          let text = "5";
+          let padded = text.padStart(4,"0");
+          // padded -> 0005
+    - text:
+        - |
+          Note
+        - |
+          The padStart() method is a string method.
+        - |
+          To pad a number, convert the number to a string first.
+      example: |
+          let numb = 5;
+          let text = numb.toString(); // <- !!!
+          let padded = text.padStart(4,"0");
+    - text:
+        - |
+          The padEnd() method pads a string from the end.
+        - |
+          It pads a string with another string (multiple times) 
+          until it reaches a given length.
+      example: |
+          let text = "5";
+          let padded = text.padEnd(4,"x");
+          // padded -> 5xxx
+
+- header: "Extracting String Characters"
+  portions:
+    - text:
+        - |
+          There are 3 methods for extracting string characters:
+        - |
+          charAt(position)   
+        - |
+          charCodeAt(position)
+        - |
+          Property access [ ]
+    - text:
+        - |
+          The charAt() method 
+          returns the character at a specified index (position) 
+          in a string
+      example: |
+          let text = "HELLO WORLD";
+          let char = text.charAt(0);
+          // char -> "H"
+    - text:
+        - |
+          ECMAScript 5 (2009) allows property access [ ] on strings:
+        - |
+          Note
+        - |
+          Property access might be a little unpredictable
+        - |
+          It makes strings look like arrays (but they are not)
+        - |
+          If no character is found, 
+          [ ] returns undefined, 
+          while charAt() returns an empty string.
+      example: |
+          let text = "HELLO WORLD";
+          let char = text[0];
+          // char -> "H"
+    - text:
+        - |
+          It is read only. 
+        - |
+          str[0] = "A" gives no error (but does not work!)
+      example: |
+          let text = "HELLO WORLD";
+          text[0] = "A";    // Gives no error, but does not work          
+    - text:
+        - |
+          The charCodeAt() method 
+          returns the unicode of the character at a specified index 
+          in a string
+        - |
+          The method returns a UTF-16 code (an integer between 0 and 65535)
+      example: |
+          let text = "HELLO WORLD";
+          let char = text.charCodeAt(0);
+          // char -> "72"
+
+- header: "Converting a String to an Array"
+  portions:
+    - text:
+        - |
+          If you want to work with a string as an array, 
+          you can convert it to an array.     
+        - |
+          A string can be converted to an array 
+          with the split() method.
+      example: |
+          let text = "a,b,c,d,e,f";
+          const myArray = text.split(",");                
+          // myArray -> ['a', 'b', 'c', 'd', 'e', 'f']
+    - text:
+        - |
+          If the separator is omitted, 
+          the returned array will contain the whole string in index [0].    
+      example: |
+          let text = "Hello";
+          const myArr = text.split();
+          // myArray -> ['Hello']
+    - text:
+        - |
+          If the separator is "", 
+          the returned array will be an array of single characters
+      example: |
+          let text = "Hello";
+          const myArr = text.split("");
+          // myArray -> ['H', 'e', 'l', 'l', 'o']
