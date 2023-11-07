@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import yaml from 'js-yaml';
 import { log, loadYaml } from 'utils';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import './Teacher.scss';
 
 
 const Teacher = (props) => {
@@ -25,23 +27,30 @@ const Teacher = (props) => {
   const runScene = () => { };
 
 
+  // <button type="button" onClick="loadSubChapter(i)" className=["sub-chapter" "btn" "btn-outline-secondary" "btn-lg" (i == subChapterPointer) && "active"]>${subChapter.header}</button>
+
   return (
     <div>
       {props.data ? (
         <div>
           <h2>Пользователи:</h2>
-          <ul>
-            {props.data.map((item, i) => (
-              <li key={'js-data-str-teth-' + i}>
-                header: {item.header}
-              </li>
-            ))}
-          </ul>
 
+          <nav>
+            <ul>
+              {props.data.map((item, i) => (
+                <li key={'js-data-str-teth-' + i}>
+                   <Button variant="outline-secondary" size="lg">{item.header}</Button>{' '}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
 
 
           <article className="scene" id="scene">
+
+
+
             <div className="left">
               <img
                 src={globals.base + "/img/teacher.png"}
