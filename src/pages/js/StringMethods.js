@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import yaml from 'js-yaml';
 import { log, loadYaml } from 'utils';
+import Teacher from 'features/Teacher';
+
 
 
 const StringMethods = () => {
@@ -29,13 +31,8 @@ const StringMethods = () => {
       {data ? (
         <div>
           <h2>Пользователи:</h2>
-          <ul>
-            {data.map((item, i) => (
-              <li key={'js-data-str-teth-' + i}>
-                header: {item.header}
-              </li>
-            ))}
-          </ul>
+          
+          <Teacher data={data}/>
         </div>
       ) : (
         <p>Loading...</p>
