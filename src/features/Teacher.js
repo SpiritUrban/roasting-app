@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import yaml from 'js-yaml';
-import { log, loadYaml } from 'utils';
+import { log, speakText, playSound, pause, scrollDown } from 'utils';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './Teacher.scss';
-
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const Teacher = (props) => {
 
@@ -12,22 +13,84 @@ const Teacher = (props) => {
     base: '/roasting-app'
   };
 
-  const [data, setData] = useState(null);
+  const [sceneList, setSceneList] = useState([]);
 
-  // Эффект для отслеживания монтирования компонента
+  const [st, setSt] = useState({
+    subChapterPointer: 0,
+    portionPointer: 0,
+    phrasePointer: 0,
+    isNextBtn: false,
+    isStartBtn: true,
+  });
+
+
   useEffect(() => {
-    // Немедленно вызываемая асинхронная функция (IIFE)
+    return () => { };
+  }, []);
 
-    return () => { }; // Компонент Counter будет размонтирован
 
-  }, []); // Пустой массив зависимостей означает, что эффект выполнится один раз после первого рендера.
+  let data4;
+
+  const getPortion = () => props.data[st.subChapterPointer];
+  const getHeaderText = () => getPortion().header.trim();
 
 
   const nextPortion = () => { };
-  const runScene = () => { };
+
+  const runScene = async () => {
+    setSt(prevSt => ({
+      ...prevSt,
+      isNextBtn: false,
+      isStartBtn: false,
+    }));
+    playSound(globals.base + "/sounds/yamete_kudasai.mp3");
+    await pause(2000);
+    runPortion();
+  };
+
+  async function runPortion() {
+    log('runPortion()')
+    log('example', getPortion());
+    const example = getPortion().portions[st.phrasePointer].example;
+    log('example', example);
+
+    if (example) addExampleToScene(example);
+
+    scrollDown();
+    await pause(2000);
+    // phraseCicle();
+  }
+
+  async function addExampleToScene(content) {
+    log('add', content)
+    setSceneList(prev => [...prev, { type: 'example', data: content }])
+    await pause(50);
+    hljs.highlightAll();
+    // await pause(300);
+    // hljs.highlightAll();
+  }
+
+  const loadSubChapter = (i) => {
+    resetScene();
+    setSt(prevSt => ({
+      ...prevSt,
+      subChapterPointer: i
+    }));
+    data4 = props.data[i];
+  }
+  function resetScene() {
+    setSt(prevSt => ({
+      ...prevSt,
+      portionPointer: 0,
+      phrasePointer: 0,
+      isNextBtn: false,
+      isStartBtn: true,
+    }));
+  }
 
 
-  // <button type="button" onClick="loadSubChapter(i)" className=["sub-chapter" "btn" "btn-outline-secondary" "btn-lg" (i == subChapterPointer) && "active"]>${subChapter.header}</button>
+
+  // <button type="button" onClick="loadSubChapter(i)" >${subChapter.header}</button>
 
   return (
     <div>
@@ -39,7 +102,14 @@ const Teacher = (props) => {
             <ul>
               {props.data.map((item, i) => (
                 <li key={'js-data-str-teth-' + i}>
-                   <Button variant="outline-secondary" size="lg">{item.header}</Button>{' '}
+                  <Button
+                    onClick={() => loadSubChapter(i)}
+                    className={`sub-chapter ${i === st.subChapterPointer ? "active" : ""}`}
+                    variant="outline-secondary"
+                    size="lg"
+                  >
+                    {item.header}
+                  </Button>
                 </li>
               ))}
             </ul>
@@ -59,26 +129,52 @@ const Teacher = (props) => {
               />
             </div>
             <div className="right">
-              <h2></h2>
-              <div className="dialog"></div>
-              <button
-                id="next-btn"
-                onClick={() => nextPortion(this)}
-                type="button"
-                className="next-btn btn btn-success btn-lg"
-              >
-                NEXT
-              </button>
+              <h2
+                className="sound"
+                onClick={() => speakText(getHeaderText())}>
+                {getHeaderText()}
+              </h2>
+
+              <div className="dialog">
+                {
+                  sceneList.map((item, i) =>
+                    item.type === 'example' && (
+                      <pre
+                        key={'example-' + i}
+                        className="scene-example">
+                        <code className="language-javascript">
+                          {item.data}
+                        </code>
+                      </pre>
+                    )
+                  )
+                }
+              </div>
+
+
+
+              {st.isNextBtn && (
+                <button
+                  id="next-btn"
+                  onClick={() => nextPortion(this)}
+                  type="button"
+                  className="next-btn btn btn-success btn-lg"
+                >
+                  NEXT
+                </button>)}
 
               <div className="centered">
-                <button
-                  id="start-btn"
-                  onClick={() => runScene(this)}
-                  type="button"
-                  className="start-btn btn btn-success btn-lg"
-                >
-                  START
-                </button>
+                {st.isStartBtn && (
+                  <button
+                    id="start-btn"
+                    onClick={() => runScene(this)}
+                    type="button"
+                    className="start-btn btn btn-success btn-lg"
+                  >
+                    START
+                  </button>
+                )}
+
               </div>
             </div>
           </article>
