@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import yaml from 'js-yaml';
-import { log, speakText, playSound, pause, scrollDown } from 'utils';
+import { log, speakText, playSound, pause, scrollDown, speakText2 } from 'utils';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './Teacher.scss';
 import hljs from 'highlight.js';
@@ -31,11 +31,16 @@ const Teacher = (props) => {
 
   let data4;
 
-  const getPortion = () => props.data[st.subChapterPointer];
-  const getHeaderText = () => getPortion().header.trim();
+  const getSubChapter = () => props.data[st.subChapterPointer];
+  const getHeaderText = () => getSubChapter().header.trim();
+  const getPortion = () => getSubChapter().portions[st.portionPointer];
 
 
-  const nextPortion = () => { };
+
+  const nextPortion = () => {
+    setSt(prev => ({ ...prev, isNextBtn: false, phrasePointer: 0, portionPointer: prev.portionPointer++ }));
+    runPortion();
+  };
 
   const runScene = async () => {
     setSt(prevSt => ({
@@ -50,24 +55,58 @@ const Teacher = (props) => {
 
   async function runPortion() {
     log('runPortion()')
-    log('example', getPortion());
-    const example = getPortion().portions[st.phrasePointer].example;
+    log('example', getSubChapter());
+    const example = getSubChapter().portions[st.portionPointer].example;
     log('example', example);
 
     if (example) addExampleToScene(example);
 
     scrollDown();
     await pause(2000);
-    // phraseCicle();
+    phraseCicle();
   }
 
+  async function phraseCicle() {
+    log('!!', getPortion())
+    addPhraseToScene(getPortion().text[st.phrasePointer]);
+    scrollDown();
+    await pause(1000);
+    scrollDown();
+    //
+    speakText2(getPortion().text[st.phrasePointer], () => {
+      setTimeout(() => {
+        let phP = st.phrasePointer++;
+
+        setSt(prev => ({ ...prev, phrasePointer: phP, }));
+
+
+        log('step', phP, getPortion().text.length - 1)
+
+        if (phP < getPortion().text.length - 1) {
+          // log('???', getSubChapter().portions[phP])
+          phraseCicle();
+        } else {
+          log("The end of phrases has been reached");
+          setSt(prev => ({ ...prev, isNextBtn: true, }));
+
+          if (st.portionPointer < getSubChapter().portions.length - 1) {
+            // setSt(prev => ({ ...prev, isNextBtn: true, }));
+            scrollDown();
+          }
+        }
+      }, 1000);
+    });
+  }
+
+  function addPhraseToScene(content) {
+    setSceneList(prev => [...prev, { type: 'phrase', data: content }])
+  }
+
+
   async function addExampleToScene(content) {
-    log('add', content)
     setSceneList(prev => [...prev, { type: 'example', data: content }])
     await pause(50);
     hljs.highlightAll();
-    // await pause(300);
-    // hljs.highlightAll();
   }
 
   const loadSubChapter = (i) => {
@@ -79,6 +118,7 @@ const Teacher = (props) => {
     data4 = props.data[i];
   }
   function resetScene() {
+    setSceneList([])
     setSt(prevSt => ({
       ...prevSt,
       portionPointer: 0,
@@ -96,7 +136,6 @@ const Teacher = (props) => {
     <div>
       {props.data ? (
         <div>
-          <h2>Пользователи:</h2>
 
           <nav>
             <ul>
@@ -116,10 +155,7 @@ const Teacher = (props) => {
           </nav>
 
 
-
           <article className="scene" id="scene">
-
-
 
             <div className="left">
               <img
@@ -138,7 +174,7 @@ const Teacher = (props) => {
               <div className="dialog">
                 {
                   sceneList.map((item, i) =>
-                    item.type === 'example' && (
+                    item.type === 'example' ? (
                       <pre
                         key={'example-' + i}
                         className="scene-example">
@@ -147,11 +183,16 @@ const Teacher = (props) => {
                         </code>
                       </pre>
                     )
+                      : item.type === 'phrase' ? (
+                        <pre
+                          key={'phrase-' + i}
+                          className="scene-phrase">
+                          {item.data}
+                        </pre>
+                      ) : null
                   )
                 }
               </div>
-
-
 
               {st.isNextBtn && (
                 <button
@@ -179,11 +220,7 @@ const Teacher = (props) => {
             </div>
           </article>
 
-
-
-
         </div>
-
 
       ) : (
         <p>Teacer Loading...</p>

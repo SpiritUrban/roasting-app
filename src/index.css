@@ -187,7 +187,6 @@ pre {
 .scene .right .next-btn {
   margin: 3rem auto;
   transform: scale(1.5);
-  display: none;
 }
 
 .centered {
