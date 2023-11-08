@@ -35,13 +35,7 @@ code {
 
 
 
-
-
-
-nav {}
-.sub-chapter.btn{
-  margin: 1rem .5rem;
-}
+ 
 
 section {
   font-size: 1rem;
@@ -110,7 +104,7 @@ pre {
   display: flex;
   align-items: stretch;
   flex-direction: row;
-  margin: 6rem 3rem 0rem 3rem;
+  margin: 6rem 0 0 0;
   padding: 2rem 1rem 1rem 1rem;
   font-family: monospace;
   font-weight: 500;
@@ -173,6 +167,7 @@ pre {
   animation: fadeIn 1s ease-in-out forwards;
   border-radius: 0;
   border: none;
+  font-size: 1.3rem;
 }
 
 @keyframes fadeIn {

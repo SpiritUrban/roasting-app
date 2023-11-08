@@ -3,7 +3,8 @@
 }
 .container-custom {
   overflow: auto;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 4.5rem);
+  scroll-behavior: smooth;
   /* display: flex;
   flex-direction: column; */
 }

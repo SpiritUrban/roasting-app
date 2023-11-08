@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import yaml from 'js-yaml';
 import { log, speakText, playSound, pause, scrollDown, speakText2 } from 'utils';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './Teacher.scss';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
+
+const w = window;
+w.portionPointer = 0
+w.phrasePointer = 0
 
 const Teacher = (props) => {
 
@@ -17,29 +19,31 @@ const Teacher = (props) => {
 
   const [st, setSt] = useState({
     subChapterPointer: 0,
-    portionPointer: 0,
-    phrasePointer: 0,
+    // portionPointer: 0,
+    // phrasePointer: 0,
     isNextBtn: false,
     isStartBtn: true,
   });
 
+  const getSubChapter = () => props.data[st.subChapterPointer];
+  const getHeaderText = () => getSubChapter().header.trim();
+  const getPortion = () => getSubChapter().portions[w.portionPointer];
+
+  const init = async () => {
+    await pause(1000);
+    scrollDown('.container-custom');
+  };
 
   useEffect(() => {
+    init()
     return () => { };
   }, []);
 
-
-  let data4;
-
-  const getSubChapter = () => props.data[st.subChapterPointer];
-  const getHeaderText = () => getSubChapter().header.trim();
-  const getPortion = () => getSubChapter().portions[st.portionPointer];
-
-
-
-  const nextPortion = () => {
-    setSt(prev => ({ ...prev, isNextBtn: false, phrasePointer: 0, portionPointer: prev.portionPointer++ }));
-    runPortion();
+  const nextPortion = async () => {
+    setSt(prev => ({ ...prev, isNextBtn: false }));
+    w.portionPointer++
+    w.phrasePointer = 0
+    await runPortion();
   };
 
   const runScene = async () => {
@@ -54,54 +58,38 @@ const Teacher = (props) => {
   };
 
   async function runPortion() {
-    log('runPortion()')
-    log('example', getSubChapter());
-    const example = getSubChapter().portions[st.portionPointer].example;
-    log('example', example);
-
+    const example = getPortion().example;
     if (example) addExampleToScene(example);
-
-    scrollDown();
+    await scrollDown('.container-custom');
     await pause(2000);
     phraseCicle();
   }
 
   async function phraseCicle() {
-    log('!!', getPortion())
-    addPhraseToScene(getPortion().text[st.phrasePointer]);
-    scrollDown();
-    await pause(1000);
-    scrollDown();
+    addPhraseToScene(getPortion().text[w.phrasePointer]);
+    await pause(100);
+    scrollDown('.container-custom');
     //
-    speakText2(getPortion().text[st.phrasePointer], () => {
-      setTimeout(() => {
-        let phP = st.phrasePointer++;
-
-        setSt(prev => ({ ...prev, phrasePointer: phP, }));
-
-
-        log('step', phP, getPortion().text.length - 1)
-
-        if (phP < getPortion().text.length - 1) {
-          // log('???', getSubChapter().portions[phP])
-          phraseCicle();
-        } else {
-          log("The end of phrases has been reached");
+    speakText2(getPortion().text[w.phrasePointer], async () => {
+      await pause(1000)
+      w.phrasePointer = w.phrasePointer + 1;
+      if (w.phrasePointer <= getPortion().text.length - 1) {
+        phraseCicle();
+      } else {
+        log("The end of phrases has been reached");
+        log(w.portionPointer, getSubChapter().portions.length - 1)
+        if (w.portionPointer < getSubChapter().portions.length - 1) {
           setSt(prev => ({ ...prev, isNextBtn: true, }));
-
-          if (st.portionPointer < getSubChapter().portions.length - 1) {
-            // setSt(prev => ({ ...prev, isNextBtn: true, }));
-            scrollDown();
-          }
+          await pause(100);
+          scrollDown('.container-custom');
         }
-      }, 1000);
+      };
     });
   }
 
   function addPhraseToScene(content) {
     setSceneList(prev => [...prev, { type: 'phrase', data: content }])
   }
-
 
   async function addExampleToScene(content) {
     setSceneList(prev => [...prev, { type: 'example', data: content }])
@@ -115,22 +103,17 @@ const Teacher = (props) => {
       ...prevSt,
       subChapterPointer: i
     }));
-    data4 = props.data[i];
   }
   function resetScene() {
     setSceneList([])
+    w.portionPointer = 0;
+    w.phrasePointer = 0;
     setSt(prevSt => ({
       ...prevSt,
-      portionPointer: 0,
-      phrasePointer: 0,
       isNextBtn: false,
       isStartBtn: true,
     }));
   }
-
-
-
-  // <button type="button" onClick="loadSubChapter(i)" >${subChapter.header}</button>
 
   return (
     <div>
@@ -153,7 +136,6 @@ const Teacher = (props) => {
               ))}
             </ul>
           </nav>
-
 
           <article className="scene" id="scene">
 
@@ -186,6 +168,7 @@ const Teacher = (props) => {
                       : item.type === 'phrase' ? (
                         <pre
                           key={'phrase-' + i}
+                          onClick={() => speakText(item.data)}
                           className="scene-phrase">
                           {item.data}
                         </pre>
