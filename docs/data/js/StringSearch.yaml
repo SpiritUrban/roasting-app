@@ -1,0 +1,31 @@
+- header: "String Search Methods"
+  portions:
+    - text:
+        - |
+          indexOf(),
+          lastIndexOf(),
+          search(),
+          match(),
+          matchAll(),
+          includes(),
+          startsWith(),
+          endsWith()
+
+- header: "indexOf()"
+  portions:
+    - text:
+        - |
+          The indexOf() method returns the index (position) 
+          the first occurrence of a string in a string
+        - |
+          Note
+        - |
+          JavaScript counts positions from zero.
+        - |
+          0 is the first position in a string, 
+          1 is the second, 
+          2 is the third, ...
+      example: |
+          let text = "Please locate where 'locate' occurs!";
+          let index = text.indexOf("locate");
+          // index -> 7
