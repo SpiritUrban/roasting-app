@@ -4,13 +4,17 @@ import yaml from 'js-yaml';
 import { log, loadYaml } from 'utils';
 import Teacher from 'features/Teacher';
 
+const globals = {
+  base: '/roasting-app'
+};
+
 const StringMethods = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     (async () => {
       try {
-        const yamlData = await loadYaml('/data/js/StringSearch.yaml');
+        const yamlData = await loadYaml(globals.base+'/data/js/StringSearch.yaml');
         setData(yamlData);
       } catch (error) {
         console.error('Ошибка при загрузке YAML данных:', error);
