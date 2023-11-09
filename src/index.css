@@ -168,6 +168,7 @@ pre {
   border-radius: 0;
   border: none;
   font-size: 1.3rem;
+  text-align: left;
 }
 
 @keyframes fadeIn {
