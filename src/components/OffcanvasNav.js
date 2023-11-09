@@ -15,7 +15,8 @@ function OffcanvasNav({ onDropdownToggle }) {
 
 
   let JS = [
-    { title: 'String Methods', url: './#/js-string-methods' }
+    { title: 'String Methods', url: './#/js-string-methods' },
+    { title: 'String Search', url: './#/js-string-search' },
   ];
   // for (let i = 0; i <100; i++){
   //   example[i] = 'example';

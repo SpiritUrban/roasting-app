@@ -11,6 +11,7 @@ import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage'
 import StringMethods from './pages/js/StringMethods';
+import StringSearch from './pages/js/StringSearch';
 
 
 function App() {
@@ -33,16 +34,12 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/js-string-methods" element={<StringMethods />} />
+            <Route path="/js-string-search" element={<StringSearch />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
 
         {isDropdownOpen && <div className="modal-backdrop fade show"></div>}
-
-
-        {/* <Button variant="primary">Primary</Button> */}
-
-
 
       </div>
 
