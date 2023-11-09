@@ -3,10 +3,7 @@ import axios from 'axios';
 import yaml from 'js-yaml';
 import { log, loadYaml } from 'utils';
 import Teacher from 'features/Teacher';
-
-const globals = {
-  base: '/roasting-app'
-};
+import { baseUrl } from 'config';
 
 const StringMethods = () => {
   const [data, setData] = useState(null);
@@ -14,7 +11,7 @@ const StringMethods = () => {
   useEffect(() => {
     (async () => {
       try {
-        const yamlData = await loadYaml(globals.base+'/data/js/StringSearch.yaml');
+        const yamlData = await loadYaml(baseUrl + '/data/js/StringSearch.yaml');
         setData(yamlData);
       } catch (error) {
         console.error('Ошибка при загрузке YAML данных:', error);
@@ -30,7 +27,7 @@ const StringMethods = () => {
       {data ? (
         <div>
           <h2>JavaScript String Search</h2>
-          <Teacher data={data}/>
+          <Teacher data={data} />
         </div>
       ) : (
         <p>Loading...</p>

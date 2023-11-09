@@ -4,17 +4,13 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import './Teacher.scss';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
+import { baseUrl } from 'config';
 
 const w = window;
 w.portionPointer = 0
 w.phrasePointer = 0
 
 const Teacher = (props) => {
-
-  const globals = {
-    base: '/roasting-app'
-  };
-
   const [sceneList, setSceneList] = useState([]);
 
   const [st, setSt] = useState({
@@ -52,7 +48,7 @@ const Teacher = (props) => {
       isNextBtn: false,
       isStartBtn: false,
     }));
-    playSound(globals.base + "/sounds/yamete_kudasai.mp3");
+    playSound(baseUrl + "/sounds/yamete_kudasai.mp3");
     await pause(2000);
     runPortion();
   };
@@ -141,7 +137,7 @@ const Teacher = (props) => {
 
             <div className="left">
               <img
-                src={globals.base + "/img/teacher.png"}
+                src={baseUrl + "/img/teacher.png"}
                 alt="Teacher"
                 style={{ maxWidth: '20rem', transition: '0.5s' }}
               />

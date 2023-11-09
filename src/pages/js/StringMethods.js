@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { loadYaml } from 'utils';
 import Teacher from 'features/Teacher';
-
-const globals = {
-  base: '/roasting-app'
-};
+import { baseUrl } from 'config';
 
 const StringMethods = () => {
   const [data, setData] = useState(null);
@@ -12,7 +9,7 @@ const StringMethods = () => {
   useEffect(() => {
     (async () => {
       try {
-        const yamlData = await loadYaml(globals.base + '/data/js/StringMethods.yaml');
+        const yamlData = await loadYaml(baseUrl + '/data/js/StringMethods.yaml');
         setData(yamlData);
       } catch (error) {
         console.error('Ошибка при загрузке YAML данных:', error);
