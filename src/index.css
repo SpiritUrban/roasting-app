@@ -138,6 +138,7 @@ pre {
   /* height: 30%; */
   margin-top: -2rem;
   transition: 0.3s;
+  padding-top: 3rem;
 }
 
 .scene .right .dialog .scene-phrase {
@@ -162,7 +163,7 @@ pre {
 
 .scene .right .dialog .scene-example {
   width: fit-content;
-  margin: 3rem auto 1rem auto;
+  margin: 1rem auto 1rem auto;
   /* filter: drop-shadow(0px 7px 5px #00000642); */
   animation: fadeIn 1s ease-in-out forwards;
   border-radius: 0;

@@ -29,3 +29,15 @@
           let text = "Please locate where 'locate' occurs!";
           let index = text.indexOf("locate");
           // index -> 7
+
+- header: "lastIndexOf()"
+  portions:
+    - text:
+        - |
+          The lastIndexOf() method returns 
+          the index of the last occurrence 
+          of a specified text in a string
+
+
+
+          
