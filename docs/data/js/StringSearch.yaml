@@ -37,7 +37,36 @@
           The lastIndexOf() method returns 
           the index of the last occurrence 
           of a specified text in a string
-
-
-
+      example: |
+          let text = "Please locate where 'locate' occurs!";
+          let index = text.lastIndexOf("locate");
+          // index -> 21
+    - text:
+        - |
+          Both indexOf(), and lastIndexOf() 
+          return -1 if the text is not found          
+      example: |
+          let text = "Please locate where 'locate' occurs!";
+          let index = text.lastIndexOf("John");          
+          // index -> -1
+    - text:
+        - |
+          Both methods accept 
+          a second parameter as the starting position 
+          for the search          
+      example: |
+          let text = "Please locate where 'locate' occurs!";
+          let index = text.indexOf("locate", 15);
+          // index -> 21
+    - text:
+        - |
+          The lastIndexOf() methods searches backwards 
+          (from the end to the beginning), 
+          meaning: if the second parameter is 15, 
+          the search starts at position 15, 
+          and searches to the beginning of the string.
+      example: |
+          let text = "Please locate where 'locate' occurs!";
+          text.lastIndexOf("locate", 15);
+          // index -> 7
           
