@@ -56,6 +56,7 @@ const Teacher = (props) => {
   async function runPortion() {
     const example = getPortion().example;
     if (example) addExampleToScene(example);
+    await pause(100);
     await scrollDown('.container-custom');
     await pause(2000);
     phraseCicle();
