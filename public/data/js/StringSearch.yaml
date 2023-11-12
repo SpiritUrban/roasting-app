@@ -70,3 +70,52 @@
           text.lastIndexOf("locate", 15);
           // index -> 7
           
+- header: "search()"
+  portions:
+    - text:
+        - |
+          The search() method searches a string for a string 
+          (or a regular expression) 
+          and returns the position of the match
+      example: |
+          let text = "Please locate where 'locate' occurs!";
+          let index = text.search("locate");                
+          // index -> 7
+    - text:
+        - |
+          /locate/ - is a regular expression. 
+        - |
+          Slashes (/) on either side indicate that 
+          it is a regular expression. 
+        - |
+          In this case, 
+          it looks for an occurrence 
+          of the word "locate".
+      example: |
+          let text = "Please locate where 'locate' occurs!";
+          let index = text.search(/locate/);
+          // index -> 7
+    - text:
+        - |
+          Did You Notice?
+        - |
+          The two methods, 
+          indexOf() and search(), 
+          are equal?
+        - |
+          They accept the same arguments (parameters), 
+          and return the same value?
+        - |
+          The two methods are NOT equal.
+        - |
+          These are the differences:
+        - |
+          * The search() method cannot take 
+          a second start position argument.
+        - |
+          * The indexOf() method cannot take 
+          powerful search values 
+          (regular expressions).
+        - |
+          You will learn more about regular expressions 
+          in a later chapter.
