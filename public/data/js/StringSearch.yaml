@@ -119,3 +119,29 @@
         - |
           You will learn more about regular expressions 
           in a later chapter.
+          
+- header: "match()"
+  portions:
+    - text:
+        - |
+          The match() method returns an array 
+          containing the results of matching a string 
+      example: |
+          let text = "The rain in SPAIN stays mainly in the plain"; 
+          const myArr = text.match(/\b\w*n\b/gi);
+          // myArr -> [rain, in, SPAIN, in, plain]
+
+- header: "matchAll()"
+  portions:
+    - text:
+        - |
+          The matchAll() method returns an iterator 
+          containing the results of matching a string 
+        - |
+          Notes
+        - |
+          matchAll() is an ES2020 feature
+      example: |
+          let text = "I love cats. Cats are very easy to love. Cats are very popular."
+          const iterator = text.matchAll(/Cats/gi); 
+          // Array.from(iterator); -> [cats, Cats, Cats]        
