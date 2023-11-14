@@ -164,3 +164,42 @@
       example: |
           let text = "Hello world, welcome to the universe.";
           text.includes("world", 12); // -> false
+
+- header: "startsWith()"
+  portions:
+    - text:
+        - |           
+          The startsWith() method returns true 
+          if a string begins with a specified value
+      example: |
+          let text = "Hello world, welcome to the universe.";
+          text.startsWith("Hello");  // -> true          
+    - text:
+        - |    
+          A start position for the search 
+          can be specified   
+      example: |
+          let text = "Hello world, welcome to the universe.";
+          text.startsWith("world", 6); // -> true     
+    - text:
+        - |    
+          Notes
+        - |    
+          startsWith() is case sensitive
+       
+- header: "endsWith()"
+  portions:
+    - text:
+        - |        
+          The endsWith() method returns true 
+          if a string ends with a specified value
+      example: |
+          let text = "John Doe";
+          text.endsWith("Doe"); // -> true   
+    - text:
+        - |        
+          Check if the 11 first characters of a string 
+          ends with "world"
+      example: |
+          let text = "Hello world, welcome to the universe.";
+          text.endsWith("world", 11); // -> true
